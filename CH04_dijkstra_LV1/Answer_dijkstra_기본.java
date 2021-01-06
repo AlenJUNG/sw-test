@@ -1,4 +1,4 @@
-package CH4_dijkstra;
+package CH04_dijkstra_LV1;
 
 import java.util.*;
 import java.io.*;
@@ -32,7 +32,7 @@ public class Answer_dijkstra_기본 {
 	public static int dis[], visited[];
 
 	public static void main(String[] args) throws IOException {
-		System.setIn(new FileInputStream("src/CH4_dijkstra/Answer_dijkstra_기본.txt"));
+		System.setIn(new FileInputStream("src/CH04_dijkstra_LV1/Answer_dijkstra_기본.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -84,14 +84,15 @@ public class Answer_dijkstra_기본 {
 		for (int toIdx = 0; toIdx < graph.get(startN).size(); toIdx++) {
 			dis[graph.get(startN).get(toIdx).getIdx()] = graph.get(startN).get(toIdx).getDistance();
 		}
-
-		for (int run = 0; run < N - 1; run++) {
+		// 마지막 노드는 확인할 필요 없기 때문에 N - 1 해도 된다
+		for (int run = 0; run < N; run++) {
+			// 현재 최단 거리가 가장 짧은 노드를 꺼내서, 방문 처리
 			int now_N = getSmallest_N();
 			visited[now_N] = 1;
-
+			// 현재 노드와 연결된 다른 노드를 확인
 			for (int toIdx = 0; toIdx < graph.get(now_N).size(); toIdx++) {
 				int value = dis[now_N] + graph.get(now_N).get(toIdx).getDistance();
-
+				// 현재 노드를 거쳐서 다른 노드로 이동하는 거리가 더 짧은 경우
 				if (value < dis[graph.get(now_N).get(toIdx).getIdx()]) {
 					dis[graph.get(now_N).get(toIdx).getIdx()] = value;
 				}
